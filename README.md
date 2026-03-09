@@ -1,0 +1,103 @@
+# Rebar Counting Product
+
+**Automatic Rebar Detection & Counting System**  
+A full-stack application for counting steel reinforcement bars (rebars) in construction using computer vision. Supports both uploaded images and live capture from OAK cameras (DepthAI), with post-processing via clustering, storage in PostgreSQL, and Excel report export.
+
+## Features
+- Image upload or live feed from OAK camera (DepthAI)  
+- Rebar detection using ONNX-exported model  
+- Bundle grouping & accurate counting with DBSCAN clustering  
+- Results saved to PostgreSQL database  
+- Export counts and details to Excel (.xlsx)  
+- FastAPI backend + modern frontend (React + Vite)  
+- Environment configuration via `.env`  
+
+## Tech Stack
+**Backend**  
+- Python 3.11+  
+- FastAPI + Uvicorn  
+- ONNX Runtime (model inference)  
+- DepthAI (OAK camera support)  
+- OpenCV, Pillow, NumPy  
+- scikit-learn (DBSCAN)  
+- psycopg2-binary (PostgreSQL)  
+- openpyxl (Excel export)  
+
+**Frontend**  
+- React  
+- Vite  
+
+**Database**  
+- PostgreSQL  
+
+## Project Structure
+Rebar Counting Product/
+├── backend/                  # FastAPI application
+│   ├── main.py               # App entry + routes + startup
+│   ├── services/             # Business logic
+│   │   ├── detector.py
+│   │   ├── oak_utils.py
+│   │   └── ...
+│   ├── api/                  # Route modules
+│   │   ├── auth_routes.py
+│   │   └── detection_routes.py
+│   └── db.py                 # Database connection & init
+├── frontend/                 # React + Vite frontend
+│   ├── src/
+│   ├── public/
+│   └── vite.config.js
+├── venv/                     # Python virtual environment (gitignored)
+├── .env                      # Environment variables (gitignored)
+├── requirement.txt           # Dependencies (consider renaming → requirements.txt)
+└── README.md
+
+
+
+
+
+## Setup (Windows)
+
+### Prerequisites
+- Python 3.11+
+- Node.js 18+ & npm
+- PostgreSQL 15+ (running locally)
+- (Optional) OAK camera (OAK-D / OAK-1 etc.) + DepthAI drivers
+
+### 1. Backend Setup
+```powershell
+# Activate virtual environment
+.\venv\Scripts\Activate.ps1
+
+# Install dependencies
+pip install -r requirement.txt
+
+
+3. Frontend Setup
+
+cd frontend
+npm install
+
+
+4. Run the Application
+Terminal 1 – Backend
+
+uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+
+
+Terminal 2 – Frontend
+
+cd frontend
+npm run dev
+
+API docs: http://localhost:8000/docs
+Web app: http://localhost:5173 (default Vite port)
+
+
+Usage
+
+Open the frontend in browser
+Upload rebar image or connect live OAK camera
+View detection results, count, and export to Excel
+
+
+
